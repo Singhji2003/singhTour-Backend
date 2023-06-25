@@ -24,7 +24,7 @@ router.post('/sign-up', [
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         success = false
-        return res.status(400).json({ success, error: errors.array() })
+        return res.status(400).json({ success, error: 'Wrong email' })
     }
 
     // Finding an existing email if not avaibale then only enter the user 
