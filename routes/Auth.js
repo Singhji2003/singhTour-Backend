@@ -124,7 +124,7 @@ router.post('/forget-password', async(req, res)=>{
             from: 'thejsorigin@gmail.com',
             to: email,
             subject: 'Resest Password of Singh Tour',
-            text: `Hello Thank you for contact us. Here is your link code : ${link}` ,
+            text: link,
           };
           
           transporter.sendMail(mailOptions, function(error, info){
