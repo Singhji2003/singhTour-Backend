@@ -112,7 +112,18 @@
                 window.location.href = 'https://singhtour.netlify.app/'
             }
         }
-
+        const showpswd = ()=>{
+          const pswd = document.getElementById('password');
+          const cpswd = document.getElementById('cpassword');
+          if(pswd.type === "password"){
+            pswd.type = "text"
+            cpswd.type = "text"
+          }
+          else{
+            pswd.type = "password"
+            cpswd.type = "password"
+          }
+        }
     </script>
 </head>
 <body>
@@ -140,7 +151,7 @@
                 </div>
                 <div class="input1">
                     <div class="checkbox" >
-                        <label for="checkbox" id='showpswd'><input type="checkbox"/> Show Password </label>
+                        <label for="checkbox" id='showpswd'><input type="checkbox" onclick="showpswd()"/> Show Password </label>
                     </div>
                 </div>
                 <div class="input1">
