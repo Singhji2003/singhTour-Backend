@@ -111,7 +111,7 @@ router.post('/forget-password', async(req, res)=>{
         }
         const secret = signJwt + user.password;
         const token = jwt.sign({email:user.email, id: user._id}, secret, {expiresIn:'5m'})
-        const link = `http://localhost:5000/reset-password/${user._id}/${token}`;
+        const link = `https://singh-tour.onrender.com/reset-password/${user._id}/${token}`;
         var transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
