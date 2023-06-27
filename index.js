@@ -7,6 +7,8 @@ connectToMongoodb();
 const app = express()
 app.use(express.json())
 app.use(cors());
+app.use(express.urlencoded({extended:false}))
+app.set("view engine", "ejs")
 const PORT = process.env.PORT
 
 // For Authentication Routes

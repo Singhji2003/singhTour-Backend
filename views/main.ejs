@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .login {
+    position: absolute;
+    width: 30rem;
+    height: 30rem;
+    top: 7rem;
+    box-shadow: 0px 0px 30px #717171;
+    border-radius: 10px;
+    background-color: whitesmoke;
+    left: 33%;
+    z-index: 999;
+    transition: transform 0.5s ease-in-out;
+  }
+  .input {
+    display: flex;
+  }
+  
+  .input1 {
+      justify-content: center;
+    display: flex;
+  }
+  
+  .input {
+    position: relative;
+    width: 20rem;
+    height: 31px;
+    border-bottom: 2px solid black;
+    margin: 2rem 5rem;
+  }
+  
+  .input label {
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translateY(-50%);
+    font-size: 1.4em;
+    pointer-events: none;
+    transition: 0.5s;
+  }
+  
+  .input input {
+    border: none;
+    width: 100%;
+    height: 100%;
+    font-size: 1.1em;
+    outline: none;
+    background: transparent;
+  }
+  .input .icon {
+    position: absolute;
+    right: 8px;
+  }
+  
+  .input .icon svg {
+    height: 22px;
+    width: 22px;
+  }
+  
+  .input input:focus~label {
+    top: -5px;
+  }
+  
+  .input input:valid~label {
+    top: -5px;
+  }
+  
+  form {
+    margin-top: 8rem;
+  }
+  
+  .btnsubmit button {
+    width: 20rem;
+    height: 2.4rem;
+    background-color: #ff6612;
+    color: white;
+    border: none;
+    outline: auto;
+    cursor: pointer;
+    font-size: 15px;
+    border-radius: 5px;
+    margin-top: 3rem;
+  }
+  
+  .checkbox a {
+    margin-left: 2rem;
+  }
+  
+  .login h1 {
+    font-size: 2em;
+    color: #ff6612;
+    width: 35vw;
+    text-align: center;
+    margin-top: 1.6rem;
+    position: absolute;
+  
+  }
+  #showpswd{
+      font-size: 1.4em;
+  }
+  
+    </style>
+    <script>
+        const status = '<%- JSON.stringify(status) %>'
+        if(JSON.parse(status) === 'verified'){
+            if(confirm("Password Has been changed Successfully!!! Go to Home Page")){
+                window.location.href = 'https://singhtour.netlify.app/'
+            }
+        }
+
+    </script>
+</head>
+<body>
+    <section>
+        <div class=" login ">
+            <h1>Reset Password</h1>
+            <form action="" method="post">
+                <div class="input">
+                    <div class="icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock-fill" viewBox="0 0 16 16">
+                            <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z" />
+                        </svg>
+                    </div>
+                    <input type="password" name="password"  id="password" required />
+                    <label for="password">Password</label>
+                </div>
+                <div class="input">
+                    <div class="icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock-fill" viewBox="0 0 16 16">
+                            <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z" />
+                        </svg>
+                    </div>
+                    <input type="password" name="cpassword"  id="cpassword" required />
+                    <label for="password">Cofirm Password</label>
+                </div>
+                <div class="input1">
+                    <div class="checkbox" >
+                        <label for="checkbox" id='showpswd'><input type="checkbox"/> Show Password </label>
+                    </div>
+                </div>
+                <div class="input1">
+                    <div class="btnsubmit">
+                        <button type="submit">Change Password</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</body>
+</html>

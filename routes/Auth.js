@@ -4,6 +4,7 @@ const User = require('../models/User')
 require('dotenv').config();
 const bcrypt = require("bcrypt")
 const { body, validationResult } = require('express-validator');
+var nodemailer = require('nodemailer');
 const jwt = require('jsonwebtoken');
 const fetchData = require('../middleware/fetchData');
 const signJwt = process.env.JWT_SIGN;
@@ -95,6 +96,99 @@ router.get('/fetch-user', fetchData, async (req, res) => {
     const id = req.user.id
     const userData = await User.findById(id).select("-password")
     res.json(userData)
+})
+
+
+// Endpoint forforget password
+router.post('/forget-password', async(req, res)=>{
+    const {email} = req.body;
+    try {
+        // Finding email that exists or not
+        const user = await User.findOne({email})
+        if(!user){
+            success = false;
+            return res.status(400).json({success, error:"This email doesn't exists"})
+        }
+        const secret = signJwt + user.password;
+        const token = jwt.sign({email:user.email, id: user._id}, secret, {expiresIn:'5m'})
+        const link = `http://localhost:5000/reset-password/${user._id}/${token}`;
+        var transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+              user: 'thejsorigin@gmail.com',
+              pass: process.env.password
+            }
+          });
+          
+          var mailOptions = {
+            from: 'thejsorigin@gmail.com',
+            to: email,
+            subject: 'Resest Password of Singh Tour',
+            text: `Hello Thank you for contact us. Here is your link code : ${link}` ,
+          };
+          
+          transporter.sendMail(mailOptions, function(error, info){
+            if (error) {
+              console.log(error);
+              success = false;
+              res.status(200).json({success, error: "Email Not found"})
+            } else {
+              console.log('Email sent: ' + info.response);
+            }});
+            success = true;
+            res.send({success, msg:'A link has been sent to your Registered Email'})
+        }
+     catch (error) {
+        console.log({err: error})
+    }
+})
+// End point of given link through email
+router.get('/reset-password/:id/:token', async(req,res)=>{
+    const {id, token} = req.params;
+    try{
+    const user = await User.findOne({_id: id});
+    if(!user){
+        return res.status(400).json({success, error:"This email doesn't exists"})
+    }
+    // const secret = signJwt + user.password;
+    // const verify = jwt.verify(token, secret);
+    //     if(!verify){
+    //         return res.status(400).json("Not verified")
+    //     }
+        res.render("main", { status : 'not verified'})
+        
+    }
+    catch(error){
+        console.log({err: error})
+
+    }
+})
+
+// For getting new password
+router.post('/reset-password/:id/:token', async(req,res)=>{
+    const {id} = req.params;
+    const {password} = await req.body;
+    try{
+    const user = await User.findOne({_id: id});
+    if(!user){
+        return res.status(400).json({success, error:"This email doesn't exists"})
+    }
+        const salt = await bcrypt.genSalt(10);
+        const hashpswd = await bcrypt.hash(password, salt);
+       await User.updateOne({
+        _id:id,
+       },{
+        $set:{
+            password: hashpswd,
+        },
+       })
+       res.render("main", { status: 'verified'})
+
+    }
+    catch(error){
+        console.log({err: error})
+
+    }
 })
 
 module.exports = router;
