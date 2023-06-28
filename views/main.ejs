@@ -103,7 +103,29 @@
   #showpswd{
       font-size: 1.4em;
   }
-  
+  @media screen and (max-width:900px) {
+  .login h1 {
+    width: 30rem;
+}
+}
+@media screen and (max-width:720px) {
+  .login {
+    left: 16%;
+}
+}
+@media screen and (max-width:578px) {
+  .login {
+    left: 7%;
+}
+}
+@media screen and (max-width:516px) {
+  .login {
+    width: 25rem;
+}
+.input {
+    width: 16rem;
+}
+}
     </style>
     <script>
         const status = '<%- JSON.stringify(status) %>'
