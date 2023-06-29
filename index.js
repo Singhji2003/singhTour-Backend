@@ -2,6 +2,7 @@ const connectToMongoodb = require('./db')
 const express = require('express');
 require('dotenv').config();
 const Auth = require('./routes/Auth')
+const Contact = require('./routes/Contact')
 const cors = require('cors')
 connectToMongoodb();
 const app = express()
@@ -13,6 +14,7 @@ const PORT = process.env.PORT
 
 // For Authentication Routes
 app.use('/', Auth )
+app.use('/contact', Contact )
 
 // Running the server
 app.listen(PORT, () => {
