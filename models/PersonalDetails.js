@@ -1,6 +1,10 @@
 const  mongoose = require('mongoose');
 const { Schema } = mongoose;
 const PersoanlDetails = new Schema({
+  user:{
+    type: mongoose.Schema.Types.ObjectId,
+    ref:'userDetails'
+  },
   name:{
     type:String
   },
